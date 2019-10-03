@@ -1,0 +1,365 @@
+Nama : Nur Rizki Fachrullah
+NIM  : D1041161035
+
+QUIZ OOP
+1. Modifer
+A.	Public
+public class SecondActivity extends AppCompatActivity {
+    public static final String EXTRA_REPLY =
+            "com.example.android.twoactivities.extra.REPLY";
+    private EditText mReply;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+        mReply = findViewById(R.id.editText_second);
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        TextView textView = findViewById(R.id.text_message);
+        textView.setText(message);
+    }
+
+    public void returnReply(View view) {
+        String reply = mReply.getText().toString();
+        Intent replyIntent = new Intent();
+        replyIntent.putExtra(EXTRA_REPLY, reply);
+        setResult(RESULT_OK, replyIntent);
+        finish();
+    }
+}
+
+B.	Protected
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_second);
+    mReply = findViewById(R.id.editText_second);
+    Intent intent = getIntent();
+    String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+    TextView textView = findViewById(R.id.text_message);
+    textView.setText(message);
+}
+
+C.	Private
+public static final String EXTRA_REPLY =
+        "com.example.android.twoactivities.extra.REPLY";
+private EditText mReply;
+
+
+2. Method
+	A.
+public void launchSecondActivity(View view) {
+    String message = text_inputNama.getText().toString();
+    Intent intent = new Intent(this, SecondActivity.class);
+    message = text_inputNama.getText().toString();
+    intent.putExtra(EXTRA_MESSAGE, message);
+    startActivityForResult(intent, TEXT_REQUEST);
+}
+
+	B.
+public void onActivityResult(int requestCode,
+                             int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == TEXT_REQUEST) {
+        if (resultCode == RESULT_OK) {
+            String reply =
+                    data.getStringExtra(SecondActivity.EXTRA_REPLY);
+            mReplyHeadTextView.setVisibility(View.VISIBLE);
+            mReplyTextView.setText(reply);
+            mReplyTextView.setVisibility(View.VISIBLE);
+        }
+    }
+}
+
+	C.
+public void returnReply(View view) {
+    String reply = mReply.getText().toString();
+    Intent replyIntent = new Intent();
+    replyIntent.putExtra(EXTRA_REPLY, reply);
+    setResult(RESULT_OK, replyIntent);
+    finish();
+}
+
+	D.
+public void launchSecondActivity(View view) {
+    Log.d(LOG_TAG, "Button clicked!");
+    Intent intent = new Intent(this, SecondActivity.class);
+    String message = mMessageEditText.getText().toString();
+    intent.putExtra(EXTRA_MESSAGE, message);
+    startActivityForResult(intent, TEXT_REQUEST);
+}
+
+
+
+
+
+3. Class
+	A. MainActivity Class
+		public class MainActivity extends AppCompatActivity {
+
+    EditText text_inputNama;
+
+    public static final String EXTRA_MESSAGE =
+            "com.example.android.d1041161035_tugastoastactiv.extra.MESSAGE";
+
+    public static final int TEXT_REQUEST = 1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        text_inputNama = findViewById(R.id.text_Nama);
+    }
+
+    public void launchSecondActivity(View view) {
+        String message = text_inputNama.getText().toString();
+        Intent intent = new Intent(this, SecondActivity.class);
+        message = text_inputNama.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivityForResult(intent, TEXT_REQUEST);
+    }
+}
+
+	B. SecondActivity Class
+		public class SecondActivity extends AppCompatActivity {
+    Button btn1,btn2;
+    TextView result,name;
+    int angka;
+    String message;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+        Intent intent = getIntent();
+        message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        name = findViewById(R.id.nama);
+        name.setText("Hallo " + message);
+
+
+        btn1=findViewById(R.id.btnup);
+        btn2=findViewById(R.id.btndown);
+        result=findViewById(R.id.hasil);
+        angka=35;
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                angka=angka+1;
+                result.setText(String.valueOf(angka));
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                angka=angka-1;
+                result.setText(String.valueOf(angka));
+            }
+        });
+
+    }
+}
+
+4. Function
+	A. 
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    text_inputNama = findViewById(R.id.text_Nama);
+}
+
+	B.
+public void launchSecondActivity(View view) {
+    String message = text_inputNama.getText().toString();
+    Intent intent = new Intent(this, SecondActivity.class);
+    message = text_inputNama.getText().toString();
+    intent.putExtra(EXTRA_MESSAGE, message);
+    startActivityForResult(intent, TEXT_REQUEST);
+}
+
+	C.
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_second);
+    Intent intent = getIntent();
+    message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+    name = findViewById(R.id.nama);
+    name.setText("Hallo " + message);
+
+
+    btn1=findViewById(R.id.btnup);
+    btn2=findViewById(R.id.btndown);
+    result=findViewById(R.id.hasil);
+    angka=35;
+
+    btn1.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            angka=angka+1;
+            result.setText(String.valueOf(angka));
+        }
+    });
+
+    btn2.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            angka=angka-1;
+            result.setText(String.valueOf(angka));
+        }
+    });
+
+}
+
+5. Constructor
+	A.
+btn1.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        angka=angka+1;
+        result.setText(String.valueOf(angka));
+    }
+});
+
+	B.
+btn2.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        angka=angka-1;
+        result.setText(String.valueOf(angka));
+    }
+});
+
+6. Polimorfisme
+	A.
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_second);
+Intent intent = getIntent();
+message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+name = findViewById(R.id.nama);
+name.setText("Hallo " + message);
+
+	B.
+btn1=findViewById(R.id.btnup);
+btn2=findViewById(R.id.btndown);
+result=findViewById(R.id.hasil);
+angka=35;
+
+	C.
+//Superclass
+class hewan{
+    
+}
+
+//Subclass Pertama
+class kucing extends hewan{
+    
+}
+
+//Subclass Kedua
+class singa extends hewan{
+    
+}
+
+//Kelas Utama/Main
+public class karnivora {
+    public static void main(String[] args){
+        
+    }
+}
+
+7. Inheritance
+	A.
+public class SecondActivity extends AppCompatActivity {
+    Button btn1,btn2;
+    TextView result,name;
+    int angka;
+    String message;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+        Intent intent = getIntent();
+        message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        name = findViewById(R.id.nama);
+        name.setText("Hallo " + message);
+
+
+        btn1=findViewById(R.id.btnup);
+        btn2=findViewById(R.id.btndown);
+        result=findViewById(R.id.hasil);
+        angka=35;
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                angka=angka+1;
+                result.setText(String.valueOf(angka));
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                angka=angka-1;
+                result.setText(String.valueOf(angka));
+            }
+        });
+
+    }
+}
+
+	B.
+public class MainActivity extends AppCompatActivity {
+
+    EditText text_inputNama;
+
+    public static final String EXTRA_MESSAGE =
+            "com.example.android.d1041161035_tugastoastactiv.extra.MESSAGE";
+
+    public static final int TEXT_REQUEST = 1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        text_inputNama = findViewById(R.id.text_Nama);
+    }
+
+    public void launchSecondActivity(View view) {
+        String message = text_inputNama.getText().toString();
+        Intent intent = new Intent(this, SecondActivity.class);
+        message = text_inputNama.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivityForResult(intent, TEXT_REQUEST);
+    }
+}
+
+	C.
+public class SecondActivity extends AppCompatActivity {
+    public static final String EXTRA_REPLY =
+            "com.example.android.twoactivities.extra.REPLY";
+    private EditText mReply;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+        mReply = findViewById(R.id.editText_second);
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        TextView textView = findViewById(R.id.text_message);
+        textView.setText(message);
+    }
+
+    public void returnReply(View view) {
+        String reply = mReply.getText().toString();
+        Intent replyIntent = new Intent();
+        replyIntent.putExtra(EXTRA_REPLY, reply);
+        setResult(RESULT_OK, replyIntent);
+        finish();
+    }
+}
+
+	
